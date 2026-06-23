@@ -1,0 +1,4 @@
+.env
+config.json
+chat.db
+__pycache__/
