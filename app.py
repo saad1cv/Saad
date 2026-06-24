@@ -19,7 +19,7 @@ if Path("config.json").exists():
     with open("config.json") as f: _cfg = json.load(f)
 GID  = _cfg.get("GOOGLE_CLIENT_ID",  os.getenv("GOOGLE_CLIENT_ID",""))
 GSEC = _cfg.get("GOOGLE_CLIENT_SECRET", os.getenv("GOOGLE_CLIENT_SECRET",""))
-RURI = "http://localhost:8501"
+RURI = "https://sadox1.streamlit.app/"
 DB   = "chat.db"
 ADMIN_EMAIL = "amarisaad033@gmail.com"
 SID  = "sid"
