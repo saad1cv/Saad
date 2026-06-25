@@ -1691,7 +1691,6 @@ def main():
             st.query_params.clear()
 
     if "user" not in st.session_state:
-        st.query_params["page"]="login"
         show_auth()
     else:
         if SID not in params:
