@@ -453,10 +453,8 @@ def get_dm_convos(uid):
 # ═══════════════════════════════════════════════════
 def google_url():
     import urllib.parse as ul
-    state = secrets.token_hex(16)
-    st.session_state["oauth_state"] = state
     p = {"client_id":GID,"redirect_uri":RURI,"response_type":"code",
-         "scope":"openid email profile","access_type":"offline","prompt":"consent","state":state}
+         "scope":"openid email profile","access_type":"offline","prompt":"consent"}
     return "https://accounts.google.com/o/oauth2/v2/auth?"+ul.urlencode(p)
 
 def google_cb(code):
