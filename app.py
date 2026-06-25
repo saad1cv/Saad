@@ -19,7 +19,7 @@ if Path("config.json").exists():
     with open("config.json") as f: _cfg = json.load(f)
 GID  = _cfg.get("GOOGLE_CLIENT_ID",  os.getenv("GOOGLE_CLIENT_ID",""))
 GSEC = _cfg.get("GOOGLE_CLIENT_SECRET", os.getenv("GOOGLE_CLIENT_SECRET",""))
-RURI = "https://sadox1.streamlit.app/"
+RURI = os.getenv("REDIRECT_URI", "http://localhost:8501")
 DB   = "chat.db"
 ADMIN_EMAIL = "amarisaad033@gmail.com"
 SID  = "sid"
@@ -453,9 +453,18 @@ def get_dm_convos(uid):
 # ═══════════════════════════════════════════════════
 def google_url():
     import urllib.parse as ul
-    p = {"client_id":GID,"redirect_uri":RURI,"response_type":"code",
-         "scope":"openid email profile","access_type":"offline","prompt":"consent"}
-    return "https://accounts.google.com/o/oauth2/v2/auth?"+ul.urlencode(p)
+    state = secrets.token_hex(16)
+    st.session_state["oauth_state"] = state
+    return (
+        "https://accounts.google.com/o/oauth2/v2/auth"
+        f"?client_id={ul.quote(GID)}"
+        f"&redirect_uri={ul.quote(RURI)}"
+        f"&response_type=code"
+        f"&scope=openid+email+profile"
+        f"&access_type=offline"
+        f"&prompt=consent"
+        f"&state={state}"
+    )
 
 def google_cb(code):
     import requests as rq, base64 as _b64, json as _json
@@ -1691,6 +1700,7 @@ def main():
             st.query_params.clear()
 
     if "user" not in st.session_state:
+        st.query_params["page"]="login"
         show_auth()
     else:
         if SID not in params:
