@@ -86,8 +86,8 @@ The SQLite file `chat.db` is created automatically on first run.
 
 1. Go to https://console.cloud.google.com/
 2. Create a project → APIs & Services → Credentials → OAuth 2.0 Client ID
-3. Set Authorized redirect URI to: `http://localhost:8501`
-4. Copy credentials to `config.json`
+3. Set Authorized redirect URI to: `https://sadox1.streamlit.app/`
+5. Copy credentials to `config.json`
 
 ---
 
